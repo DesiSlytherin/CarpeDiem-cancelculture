@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/second-style.css' %}">
+    <title>Student User</title>
+</head>
+<body>
+<div class = "main">
+    <div class = "head-sec">
+        <h2>Leave Record</h2>
+    </div>
+    <div class = leave_form>
+        <form class="form-inline" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            {{form.username.label}}
+            {{form.username}}
+            <div  class = "name" id = nameid>
+                <label>{{form.Name.label}}</label>
+                {{form.Name}}
+              
+            </div>
+            
+            <div class = "regnum">
+                <label>{{form.Register_Number.label}}</label>
+                {{form.Register_Number}}
+            </div>
+            
+            <div class = "dept">
+                <label>{{form.Department.label}}</label>
+                {{form.Department}}
+            </div>
+
+            
+            <div class = "reason">
+                <label>{{form.Reason.label}} for leave</label>
+                {{form.Reason}}
+            </div>
+
+            <div class = "initial">
+                <label>{{form.Initial_Date.label}}</label>
+                {{form.Initial_Date}}
+
+            </div>
+            
+            <div class = "final">
+                <label>{{form.Final_Date.label}}</label>
+                {{form.Final_Date}}<br>
+                <label>{{form.Attachment.label}}</label>
+                {{form.Attachment}}
+            </div>
+            <div style="display: none;">{{form.Status.label}}{{form.Status}}</div>
+            <button type="submit">Submit</button>
+        </form>
+
+        
+    </div>>
+</div>
+<style type="text/css">
+    select{
+        width: 400px;
+        height: 25px;
+    }
+    input{
+        width: 400px;
+        height: 25px;
+    }
+</style>
+
+
+</body>
+</html>

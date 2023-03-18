@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/faculty.css' %}">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class = "main">
+        <div class = "facultyl">
+            {% if request.user.is_superuser %}
+            <h1>Faculty Login</h1>
+            {% else %}
+            <h1>Student Login</h1>
+            {% endif %}
+        </div>
+        <div class = "label">
+            <Label>Welcome Back!</Label>
+        </div>
+        <div class = "pending">
+            <table>
+                <tr>
+                    <td>
+                        S.No.
+                    </td>
+                    <td>
+                        Register Number
+                    </td>
+                    <td>
+                        Name
+                    </td>
+                    <td>
+                        Reason for Leave
+                    </td>
+                    <td>
+                        Letter
+                    </td>
+                    <td>
+                        Status of Approval
+                    </td>
+                    {% if request.user.is_superuser %}
+                    <td>Intial Date</td>
+                    <td>Final Date</td>
+                    <td>Options</td>
+                    {% endif %}
+                </tr>
+                {% for i in data %}
+                <tr>
+                    <td>
+                        {{forloop.counter}}
+                    </td>
+                    <td>
+                       {{i.Register_Number}}
+                    </td>
+                    <td>
+                        {{i.Name}}
+                    </td>
+                    <td>
+                        {{i.Reason}}
+                    </td>
+                    <td>
+                        {% if i.Attachment %}
+                        <a href="{{i.Attachment.url}}">View</a>
+                        {% else %}
+                        Not Uploaded
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{i.Status}}
+                    </td>
+                    {% if request.user.is_superuser %}
+                    <td>{{i.Initial_Date}}</td>
+                    <td>{{i.Final_Date}}</td>
+                    <td><a href="{% url 'approve' i.id %}">Approve</a> <a href="{% url 'reject' i.id %}">Reject</a></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class = buttons>
+            {% if request.user.is_superuser %}
+            <button style="position:absolute;left: 50px;top: 25px;" onClick="window.location.reload();">Update</button>
+            {% else %}
+            <button onclick="window.location.href='http://127.0.0.1:8000/Request%20Leave';" style="position:absolute;left: 50px;top: 25px;">New</button>
+            {% endif %}
+            
+            <a href="{% url 'logout' %}" style="position:absolute;left:1100px;top: 50px;color: whitesmoke;">Logout</a>
+        </div>
+    </div>
+</body>
+</html>
